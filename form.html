@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Validation</title>
+<style>
+    .error {
+        color: red;
+    }
+</style>
+</head>
+<body>
+
+<form id="myForm">
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="email"><br>
+    <span id="emailError" class="error"></span><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password"><br>
+    <span id="passwordError" class="error"></span><br>
+
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    const form = document.getElementById('myForm');
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); 
+
+      
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+
+     
+        if (!emailPattern.test(email)) {
+            document.getElementById('emailError').textContent = 'Invalid email format';
+            return;
+        } else {
+            document.getElementById('emailError').textContent = '';
+        }
+
+      
+        if (!passwordPattern.test(password)) {
+            document.getElementById('passwordError').textContent = 'Password must be at least 8 characters long and contain at least one number, one lowercase letter, and one uppercase letter';
+            return;
+        } else {
+            document.getElementById('passwordError').textContent = '';
+        }
+
+        form.submit();
+    });
+</script>
+
+</body>
+</html>
